@@ -14,6 +14,10 @@ import uni.dbprak21.shopmiddleware.exception.ResourceNotFoundException;
 import uni.dbprak21.shopmiddleware.model.Product;
 import uni.dbprak21.shopmiddleware.repository.ProductRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+
 @CrossOrigin(origins = "http://localhost:4200") // ng
 @RestController
 @RequestMapping("/api/v1/")
@@ -22,9 +26,12 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     // Get all products
-    @GetMapping("/employees")
-    public List<Product> getAllProducts(){
+    @GetMapping("/products")
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
@@ -32,7 +39,16 @@ public class ProductController {
     @GetMapping("/products/{asin}")
     public ResponseEntity<Product> getProductById(@PathVariable String asin) {
         Product product = productRepository.findById(asin)
-                .orElseThrow(() -> new ResourceNotFoundException("product not exist with ASIN :" + asin));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not exist with ASIN: " + asin));
         return ResponseEntity.ok(product);
+    }
+
+    // Get products via title pattern
+    @GetMapping("/products/title/{pattern}")
+    public List<Product> getProductsByTitlePattern(@PathVariable String pattern) {
+        String hql = "FROM Product p WHERE p.productTitle LIKE :pattern";
+        TypedQuery<Product> query = entityManager.createQuery(hql, Product.class);
+        query.setParameter("pattern", "%" + pattern + "%");
+        return query.getResultList();
     }
 }
