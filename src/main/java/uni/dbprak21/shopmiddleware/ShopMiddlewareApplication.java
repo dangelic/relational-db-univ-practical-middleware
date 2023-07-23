@@ -1,4 +1,4 @@
-package com.dbprak21.shop_middleware;
+package uni.dbprak21.shopmiddleware;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
