@@ -10,10 +10,10 @@ public class Product {
     private String asin;
 
     @Column(name = "ptitle", length = 255, nullable = false)
-    private String ptitle;
+    private String productTitle;
 
     @Column(name = "pgroup", length = 5, nullable = false)
-    private String pgroup;
+    private String productGroup;
 
     @Column(name = "ean", length = 13)
     private String ean;
@@ -39,11 +39,11 @@ public class Product {
     }
 
     // Constructor with all fields
-    public Product(String asin, String ptitle, String pgroup, String ean, String imageUrl, String detailpageUrl, Integer salesrank, String upc, Float averageRating) {
+    public Product(String asin, String productTitle, String productGroup, String ean, String imageUrl, String detailpageUrl, Integer salesrank, String upc, Float averageRating) {
         super();
         this.asin = asin;
-        this.ptitle = ptitle;
-        this.pgroup = pgroup;
+        this.productTitle = productTitle;
+        this.productGroup = productGroup;
         this.ean = ean;
         this.imageUrl = imageUrl;
         this.detailpageUrl = detailpageUrl;
@@ -60,20 +60,20 @@ public class Product {
         this.asin = asin;
     }
 
-    public String getPtitle() {
-        return ptitle;
+    public String getProductTitle() {
+        return productTitle;
     }
 
-    public void setPtitle(String ptitle) {
-        this.ptitle = ptitle;
+    public void setProductTitle(String productTitle) {
+        this.productTitle = productTitle;
     }
 
-    public String getPgroup() {
-        return pgroup;
+    public String getProductGroup() {
+        return productGroup;
     }
 
-    public void setPgroup(String pgroup) {
-        this.pgroup = pgroup;
+    public void setPgroup(String productGroup) {
+        this.productGroup = productGroup;
     }
 
     public String getEan() {
