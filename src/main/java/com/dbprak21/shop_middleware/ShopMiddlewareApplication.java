@@ -10,4 +10,5 @@ public class ShopMiddlewareApplication {
 		SpringApplication.run(ShopMiddlewareApplication.class, args);
 	}
 
+
 }
