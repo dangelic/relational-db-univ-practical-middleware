@@ -23,8 +23,15 @@ public class ProductController {
 
     // Get products via title pattern using query parameter
     @GetMapping("/title")
-    public ResponseEntity<List<Product>> getProductsByTitlePattern(@RequestParam("pattern") String pattern) {
-        List<Product> products = productDTO.getProductsByTitlePattern(pattern);
+    public ResponseEntity<List<Product>> getProducts(@RequestParam("pattern") String pattern) {
+        List<Product> products = productDTO.getProducts(pattern);
+        return ResponseEntity.ok(products);
+    }
+
+    // Get top k products using query parameter
+    @GetMapping("/top")
+    public ResponseEntity<List<Product>> geTopProducts(@RequestParam("k") int k) {
+        List<Product> products = productDTO.getTopProducts(k);
         return ResponseEntity.ok(products);
     }
 }
