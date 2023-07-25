@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import uni.dbprak21.shopmiddleware.model.Product;
-import uni.dbprak21.shopmiddleware.model.ProductDTO;
+import uni.dbprak21.shopmiddleware.dto.ProductDTO;
 
 @CrossOrigin(origins = "http://localhost:4200") // ng
 @RestController
@@ -30,7 +30,7 @@ public class ProductController {
 
     // Get top k products using query parameter
     @GetMapping("/top")
-    public ResponseEntity<List<Product>> geTopProducts(@RequestParam("k") int k) {
+    public ResponseEntity<List<Product>> getTopProducts(@RequestParam("k") int k) {
         List<Product> products = productDTO.getTopProducts(k);
         return ResponseEntity.ok(products);
     }
