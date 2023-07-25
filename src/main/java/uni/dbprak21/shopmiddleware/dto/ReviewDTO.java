@@ -12,6 +12,7 @@ import uni.dbprak21.shopmiddleware.model.UserReview;
 @Component
 public class ReviewDTO implements ShopMiddlewareInterface {
 
+
     private final EntityManager entityManager;
 
     @Autowired
