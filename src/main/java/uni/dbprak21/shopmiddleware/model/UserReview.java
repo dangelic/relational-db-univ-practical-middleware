@@ -1,15 +1,19 @@
 package uni.dbprak21.shopmiddleware.model;
 
 import jakarta.persistence.*;
+
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "userreviews")
+@SequenceGenerator(name = "user_review_seq", sequenceName = "user_review_seq", allocationSize = 1)
 public class UserReview {
 
     @Id
-    @Column(name = "userreview_id", length = 9, nullable = false)
-    private String userReviewId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "userreview_id", unique = true, nullable = false)
+    private UUID userReviewId;
 
     @ManyToOne
     @JoinColumn(name = "products_asin", nullable = false)
@@ -40,7 +44,7 @@ public class UserReview {
     public UserReview() {
     }
 
-    public UserReview(String userReviewId, Product product, User user, int rating, int helpfulVotes,
+    public UserReview(UUID userReviewId, Product product, User user, int rating, int helpfulVotes,
                       String summary, String content, Date reviewDate) {
         this.userReviewId = userReviewId;
         this.product = product;
@@ -53,11 +57,11 @@ public class UserReview {
     }
 
     // Getters and setters
-    public String getUserReviewId() {
+    public UUID getUserReviewId() {
         return userReviewId;
     }
 
-    public void setUserReviewId(String userReviewId) {
+    public void setUserReviewId(UUID userReviewId) {
         this.userReviewId = userReviewId;
     }
 
