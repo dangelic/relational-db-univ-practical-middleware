@@ -20,7 +20,7 @@ public interface ShopMiddlewareInterface {
     default List<Product> getProductsByCategoryPath(String categoryPath) { return Collections.emptyList(); }
     default List<Product> getSimilarCheaperProduct(String productId) { return Collections.emptyList(); }
     default void addNewReview(Product product, User user, Integer rating, Integer helpfulVotes, String summary, String content) {}
-    // default List<User> getTrolls(float rating) { return Collections.emptyList(); }
+    default List<User> getTrolls(float threshold, int minReviews) { return Collections.emptyList(); }
     default List<PriceInfo> getOffers(String productId) { return Collections.emptyList(); }
 
     // New methods to view user and guest reviews

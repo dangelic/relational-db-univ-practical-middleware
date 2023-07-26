@@ -10,6 +10,7 @@ import uni.dbprak21.shopmiddleware.model.User;
 import uni.dbprak21.shopmiddleware.model.UserReview;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class ReviewDTO implements ShopMiddlewareInterface {
     public void addNewReview(Product product, User user, Integer rating, Integer helpfulVotes, String summary, String content) {
         Date reviewDate = new Date(); // Set the review date to the current date and time
 
-        if (user == null || user.getUsername().equals("__GUEST__")) {
+        if (user == null) {
             // User is null, it's a guest review
             GuestReview guestReview = new GuestReview();
             guestReview.setProduct(product);
@@ -64,6 +65,31 @@ public class ReviewDTO implements ShopMiddlewareInterface {
         // Retrieve the newest k guest reviews from the database
         return entityManager.createQuery("SELECT gr FROM GuestReview gr ORDER BY gr.reviewDate DESC", GuestReview.class)
                 .setMaxResults(k)
+                .getResultList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> getTrolls(float threshold, int minReviews) {
+        String subquery = "SELECT ur.user.id " +
+                "FROM UserReview ur " +
+                "GROUP BY ur.user.id " +
+                "HAVING AVG(ur.rating) <= :threshold " +
+                "AND COUNT(ur) >= :minReviews";
+
+        List<Long> trollUserIds = entityManager.createQuery(subquery, Long.class)
+                .setParameter("threshold", threshold)
+                .setParameter("minReviews", minReviews)
+                .getResultList();
+
+        if (trollUserIds.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String userQuery = "SELECT u FROM User u " +
+                "WHERE u.id IN :trollUserIds";
+
+        return entityManager.createQuery(userQuery, User.class)
+                .setParameter("trollUserIds", trollUserIds)
                 .getResultList();
     }
 }

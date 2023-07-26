@@ -36,11 +36,24 @@ public class ReviewController {
         this.userRepository = userRepository;
     }
 
+    @GetMapping("/view/trolls")
+    public ResponseEntity<List<User>> getTrolls(@RequestParam float threshold, @RequestParam int minReviews) {
+        try {
+            // Call the getTrolls method in ReviewDTO and retrieve trolls based on the specified criteria
+            List<User> trolls = reviewDTO.getTrolls(threshold, minReviews);
+            return ResponseEntity.ok(trolls);
+        } catch (Exception e) {
+            // Log the unexpected exception and return 500 Internal Server Error response
+            logger.error("Error retrieving trolls: " + e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
     @PostMapping("/add")
     public ResponseEntity<String> addReview(@RequestBody Map<String, Object> reviewData) {
         // Extract reviewData from API calls' body
         String asin = (String) reviewData.get("asin");
-        String username = (String) reviewData.get("username"); // Optional, if not set in body (or is __GUEST__, the review will go into "guestreviews"
+        String username = (String) reviewData.get("username"); // Optional, if not set in body the review will go into "guestreviews"
         Integer rating = (Integer) reviewData.get("rating");
         Integer helpfulVotes = (Integer) reviewData.get("helpfulVotes");
         String summary = (String) reviewData.get("summary");
