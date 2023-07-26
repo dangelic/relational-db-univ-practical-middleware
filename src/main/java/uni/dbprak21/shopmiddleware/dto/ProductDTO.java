@@ -17,10 +17,18 @@ public class ProductDTO implements ShopMiddlewareInterface {
     }
 
     public List<Product> getProducts(String pattern) {
-        String HQL = "FROM Product p WHERE p.productTitle LIKE :pattern";
-        TypedQuery<Product> query = entityManager.createQuery(HQL, Product.class);
-        query.setParameter("pattern", "%" + pattern + "%");
-        return query.getResultList();
+        if (pattern == null || pattern.isEmpty()) {
+            // If the pattern is empty or null, return all products
+            String allProductsHQL = "FROM Product";
+            TypedQuery<Product> allProductsQuery = entityManager.createQuery(allProductsHQL, Product.class);
+            return allProductsQuery.getResultList();
+        } else {
+            // If the pattern is not empty, search for products based on the pattern
+            String productSearchHQL = "FROM Product p WHERE p.productTitle LIKE :pattern";
+            TypedQuery<Product> productSearchQuery = entityManager.createQuery(productSearchHQL, Product.class);
+            productSearchQuery.setParameter("pattern", "%" + pattern.toLowerCase() + "%");
+            return productSearchQuery.getResultList();
+        }
     }
 
     public List<Product> getTopProducts(int k) {
