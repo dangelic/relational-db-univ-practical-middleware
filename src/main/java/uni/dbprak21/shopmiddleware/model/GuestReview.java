@@ -2,13 +2,15 @@ package uni.dbprak21.shopmiddleware.model;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "guestreviews")
 public class GuestReview {
 
     @Id
-    @Column(name = "guestreview_id", length = 9, nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "guestreview_id", unique = true, nullable = false)
     private String guestReviewId;
 
     @ManyToOne

@@ -5,14 +5,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uni.dbprak21.shopmiddleware.dto.ReviewDTO;
+import uni.dbprak21.shopmiddleware.model.GuestReview;
 import uni.dbprak21.shopmiddleware.model.Product;
 import uni.dbprak21.shopmiddleware.model.User;
 import jakarta.persistence.EntityNotFoundException;
+import uni.dbprak21.shopmiddleware.model.UserReview;
 import uni.dbprak21.shopmiddleware.repository.ProductRepository;
 import uni.dbprak21.shopmiddleware.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200") // ng
@@ -37,7 +40,7 @@ public class ReviewController {
     public ResponseEntity<String> addReview(@RequestBody Map<String, Object> reviewData) {
         // Extract reviewData from API calls' body
         String asin = (String) reviewData.get("asin");
-        String username = (String) reviewData.get("username");
+        String username = (String) reviewData.get("username"); // Optional, if not set in body (or is __GUEST__, the review will go into "guestreviews"
         Integer rating = (Integer) reviewData.get("rating");
         Integer helpfulVotes = (Integer) reviewData.get("helpfulVotes");
         String summary = (String) reviewData.get("summary");
@@ -65,6 +68,32 @@ public class ReviewController {
             // Log the unexpected exception and return 500 Internal Server Error response
             logger.error("Error adding review: " + e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding review.");
+        }
+    }
+
+    @GetMapping("/view/user")
+    public ResponseEntity<List<UserReview>> viewUserReviews(@RequestParam String username) {
+        try {
+            // Call the viewUserReviews method in ReviewDTO and retrieve user reviews for the given username
+            List<UserReview> userReviews = reviewDTO.viewUserReviews(username);
+            return ResponseEntity.ok(userReviews);
+        } catch (Exception e) {
+            // Log the unexpected exception and return 500 Internal Server Error response
+            logger.error("Error viewing user reviews: " + e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @GetMapping("/view/guests")
+    public ResponseEntity<List<GuestReview>> viewGuestReviews(@RequestParam int k) {
+        try {
+            // Call the viewGuestReviews method in ReviewDTO and retrieve the newest k guest reviews
+            List<GuestReview> guestReviews = reviewDTO.viewGuestReviews(k);
+            return ResponseEntity.ok(guestReviews);
+        } catch (Exception e) {
+            // Log the unexpected exception and return 500 Internal Server Error response
+            logger.error("Error viewing guest reviews: " + e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 }

@@ -11,6 +11,7 @@ import uni.dbprak21.shopmiddleware.model.UserReview;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class ReviewDTO implements ShopMiddlewareInterface {
@@ -26,7 +27,7 @@ public class ReviewDTO implements ShopMiddlewareInterface {
     public void addNewReview(Product product, User user, Integer rating, Integer helpfulVotes, String summary, String content) {
         Date reviewDate = new Date(); // Set the review date to the current date and time
 
-        if (user == null) {
+        if (user == null || user.getUsername().equals("__GUEST__")) {
             // User is null, it's a guest review
             GuestReview guestReview = new GuestReview();
             guestReview.setProduct(product);
@@ -35,7 +36,7 @@ public class ReviewDTO implements ShopMiddlewareInterface {
             guestReview.setSummary(summary);
             guestReview.setContent(content);
             guestReview.setReviewDate(reviewDate); // Set the review date
-            // Set other guest review properties as needed
+            // Persist the changes
             entityManager.persist(guestReview);
         } else {
             // User is not null, it's a user review
@@ -47,8 +48,22 @@ public class ReviewDTO implements ShopMiddlewareInterface {
             userReview.setSummary(summary);
             userReview.setContent(content);
             userReview.setReviewDate(reviewDate); // Set the review date
-            // Set other user review properties as needed
+            // Persist the changes
             entityManager.persist(userReview);
         }
+    }
+
+    public List<UserReview> viewUserReviews(String username) {
+        // Retrieve user reviews for the given username from the database
+        return entityManager.createQuery("SELECT ur FROM UserReview ur WHERE ur.user.username = :username", UserReview.class)
+                .setParameter("username", username)
+                .getResultList();
+    }
+
+    public List<GuestReview> viewGuestReviews(int k) {
+        // Retrieve the newest k guest reviews from the database
+        return entityManager.createQuery("SELECT gr FROM GuestReview gr ORDER BY gr.reviewDate DESC", GuestReview.class)
+                .setMaxResults(k)
+                .getResultList();
     }
 }
