@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:4200") // ng
 @RestController
 @RequestMapping("/api/v1/reviews")
 public class ReviewController {

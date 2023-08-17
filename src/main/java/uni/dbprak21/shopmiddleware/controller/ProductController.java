@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import uni.dbprak21.shopmiddleware.model.Product;
 import uni.dbprak21.shopmiddleware.dto.ProductDTO;
 
-@CrossOrigin(origins = "http://localhost:4200") // ng
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {

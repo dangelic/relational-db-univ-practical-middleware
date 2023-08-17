@@ -10,7 +10,6 @@ import uni.dbprak21.shopmiddleware.model.Category;
 import uni.dbprak21.shopmiddleware.dto.CategoryDTO;
 import uni.dbprak21.shopmiddleware.model.Product;
 
-@CrossOrigin(origins = "http://localhost:4200") // ng
 @RestController
 @RequestMapping("/api/v1/categories")
 public class CategoryController {
