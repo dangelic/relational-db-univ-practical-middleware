@@ -2,9 +2,23 @@ package uni.dbprak21.shopmiddleware.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 public class Product {
+
+    // Product is the "owning side" in the n:m relationship
+    // categories represents the joining logic via the junction table
+    @ManyToMany
+    @JoinTable(
+            name = "junction_products_categories",
+            joinColumns = @JoinColumn(name = "products_asin"),
+            inverseJoinColumns = @JoinColumn(name = "categories_category_id")
+    )
+    private List<Category> categories = new ArrayList<>();
+
     @Id
     @Column(name = "asin", length = 10, nullable = false)
     private String asin;
