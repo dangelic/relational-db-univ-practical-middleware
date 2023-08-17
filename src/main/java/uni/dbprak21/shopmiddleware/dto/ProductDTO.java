@@ -30,11 +30,4 @@ public class ProductDTO implements ShopMiddlewareInterface {
             return productSearchQuery.getResultList();
         }
     }
-
-    public List<Product> getTopProducts(int k) {
-        String HQL = "FROM Product p WHERE p.averageRating IS NOT NULL ORDER BY p.averageRating DESC"; // not-null constraint as some products are not rated at all.
-        TypedQuery<Product> query = entityManager.createQuery(HQL, Product.class);
-        query.setMaxResults(k);
-        return query.getResultList();
-    }
 }

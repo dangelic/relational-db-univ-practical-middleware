@@ -1,5 +1,6 @@
 package uni.dbprak21.shopmiddleware.dto;
 
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uni.dbprak21.shopmiddleware.ShopMiddlewareInterface;
@@ -91,5 +92,12 @@ public class ReviewDTO implements ShopMiddlewareInterface {
         return entityManager.createQuery(userQuery, User.class)
                 .setParameter("trollUserIds", trollUserIds)
                 .getResultList();
+    }
+
+    public List<Product> getTopProducts(int k) {
+        String HQL = "FROM Product p WHERE p.averageRating IS NOT NULL ORDER BY p.averageRating DESC"; // not-null constraint as some products are not rated at all.
+        TypedQuery<Product> query = entityManager.createQuery(HQL, Product.class);
+        query.setMaxResults(k);
+        return query.getResultList();
     }
 }

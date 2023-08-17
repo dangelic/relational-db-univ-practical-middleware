@@ -109,4 +109,10 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    // Get top k products using query parameter
+    @GetMapping("/top")
+    public ResponseEntity<List<Product>> getTopProducts(@RequestParam("k") int k) {
+        List<Product> products = reviewDTO.getTopProducts(k);
+        return ResponseEntity.ok(products);
+    }
 }

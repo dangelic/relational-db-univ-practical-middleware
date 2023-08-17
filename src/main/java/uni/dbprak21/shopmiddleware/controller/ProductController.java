@@ -27,11 +27,4 @@ public class ProductController {
         List<Product> products = productDTO.getProducts(pattern);
         return ResponseEntity.ok(products);
     }
-
-    // Get top k products using query parameter
-    @GetMapping("/top")
-    public ResponseEntity<List<Product>> getTopProducts(@RequestParam("k") int k) {
-        List<Product> products = productDTO.getTopProducts(k);
-        return ResponseEntity.ok(products);
-    }
 }
