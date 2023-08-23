@@ -8,11 +8,11 @@ import jakarta.persistence.TypedQuery;
 import uni.dbprak21.shopmiddleware.model.Product;
 
 @Component
-public class ProductDTO implements ShopMiddlewareInterface {
+public class ProductInformationDTO implements ShopMiddlewareInterface {
     private final EntityManager entityManager;
 
     @Autowired
-    public ProductDTO(EntityManager entityManager) {
+    public ProductInformationDTO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
