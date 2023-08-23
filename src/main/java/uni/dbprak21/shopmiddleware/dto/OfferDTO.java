@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
-import uni.dbprak21.shopmiddleware.ShopMiddlewareInterface;
+import uni.dbprak21.shopmiddleware.ShopMiddleware;
 import uni.dbprak21.shopmiddleware.model.PriceInfo;
 import uni.dbprak21.shopmiddleware.model.Product;
 
 @Component
-public class OfferDTO implements ShopMiddlewareInterface {
+public class OfferDTO implements ShopMiddleware {
 
     private final EntityManager entityManager;
 

@@ -11,7 +11,6 @@ import uni.dbprak21.shopmiddleware.dto.OfferDTO;
 import uni.dbprak21.shopmiddleware.model.Product;
 
 @RestController
-@RequestMapping("/api/v1/offers") // Use "/offers" for offers endpoint
 public class OfferController {
 
     private final OfferDTO offerDTO; // Autowire PriceinfoDTO
@@ -22,15 +21,13 @@ public class OfferController {
     }
 
     // Get offers for a given ASIN
-    @GetMapping("/getOffers")
-    public ResponseEntity<List<PriceInfo>> getOffers(@RequestParam("asin") String asin) {
+    public ResponseEntity<List<PriceInfo>> getOffers(String asin) {
         List<PriceInfo> offers = offerDTO.getOffers(asin);
         return ResponseEntity.ok(offers);
     }
 
     // Get offers for a given ASIN
-    @GetMapping("/getSimilarCheaperProduct")
-    public ResponseEntity<List<Product>> getSimilarCheaperProduct(@RequestParam("asin") String asin) {
+    public ResponseEntity<List<Product>> getSimilarCheaperProduct(String asin) {
         List<Product> offers = offerDTO.getSimilarCheaperProduct(asin);
         return ResponseEntity.ok(offers);
     }

@@ -2,13 +2,13 @@ package uni.dbprak21.shopmiddleware.dto;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uni.dbprak21.shopmiddleware.ShopMiddlewareInterface;
+import uni.dbprak21.shopmiddleware.ShopMiddleware;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import uni.dbprak21.shopmiddleware.model.Product;
 
 @Component
-public class ProductInformationDTO implements ShopMiddlewareInterface {
+public class ProductInformationDTO implements ShopMiddleware {
     private final EntityManager entityManager;
 
     @Autowired

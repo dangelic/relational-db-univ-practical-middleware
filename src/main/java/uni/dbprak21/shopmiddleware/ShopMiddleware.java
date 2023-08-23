@@ -10,7 +10,7 @@ import uni.dbprak21.shopmiddleware.model.Category;
 import java.util.Collections;
 import java.util.List;
 
-public interface ShopMiddlewareInterface {
+public interface ShopMiddleware {
 
     // default void init(Properties properties) {};
     default void finish() {}

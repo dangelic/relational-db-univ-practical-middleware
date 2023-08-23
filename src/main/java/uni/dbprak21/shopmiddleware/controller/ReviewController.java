@@ -10,8 +10,8 @@ import uni.dbprak21.shopmiddleware.model.Product;
 import uni.dbprak21.shopmiddleware.model.User;
 import jakarta.persistence.EntityNotFoundException;
 import uni.dbprak21.shopmiddleware.model.UserReview;
-import uni.dbprak21.shopmiddleware.repository.ProductRepository;
-import uni.dbprak21.shopmiddleware.repository.UserRepository;
+import uni.dbprak21.shopmiddleware.repositoryjpa.ProductRepository;
+import uni.dbprak21.shopmiddleware.repositoryjpa.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/reviews")
 public class ReviewController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
@@ -35,8 +34,7 @@ public class ReviewController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/view/trolls")
-    public ResponseEntity<List<User>> getTrolls(@RequestParam float threshold, @RequestParam int minReviews) {
+    public ResponseEntity<List<User>> getTrolls(float threshold, int minReviews) {
         try {
             // Call the getTrolls method in ReviewDTO and retrieve trolls based on the specified criteria
             List<User> trolls = reviewDTO.getTrolls(threshold, minReviews);
@@ -48,8 +46,7 @@ public class ReviewController {
         }
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<String> addReview(@RequestBody Map<String, Object> reviewData) {
+    public ResponseEntity<String> addNewReview(Map<String, Object> reviewData) {
         // Extract reviewData from API calls' body
         String asin = (String) reviewData.get("asin");
         String username = (String) reviewData.get("username"); // Optional, if not set in body the review will go into "guestreviews"
@@ -83,8 +80,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/view/user")
-    public ResponseEntity<List<UserReview>> viewUserReviews(@RequestParam String username) {
+    public ResponseEntity<List<UserReview>> viewUserReviews(String username) {
         try {
             // Call the viewUserReviews method in ReviewDTO and retrieve user reviews for the given username
             List<UserReview> userReviews = reviewDTO.viewUserReviews(username);
@@ -96,8 +92,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/view/guests")
-    public ResponseEntity<List<GuestReview>> viewGuestReviews(@RequestParam int k) {
+    public ResponseEntity<List<GuestReview>> viewGuestReviews(int k) {
         try {
             // Call the viewGuestReviews method in ReviewDTO and retrieve the newest k guest reviews
             List<GuestReview> guestReviews = reviewDTO.viewGuestReviews(k);
@@ -109,8 +104,7 @@ public class ReviewController {
         }
     }
     // Get top k products using query parameter
-    @GetMapping("/top")
-    public ResponseEntity<List<Product>> getTopProducts(@RequestParam("k") int k) {
+    public ResponseEntity<List<Product>> getTopProducts(int k) {
         List<Product> products = reviewDTO.getTopProducts(k);
         return ResponseEntity.ok(products);
     }

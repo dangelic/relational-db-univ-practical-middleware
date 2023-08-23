@@ -3,10 +3,10 @@ package uni.dbprak21.shopmiddleware.system;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.core.env.Environment;
-import uni.dbprak21.shopmiddleware.ShopMiddlewareInterface;
+import uni.dbprak21.shopmiddleware.ShopMiddleware;
 
 @Component
-public class Initializer implements ShopMiddlewareInterface {
+public class Initializer implements ShopMiddleware {
 
     private final Environment environment;
 

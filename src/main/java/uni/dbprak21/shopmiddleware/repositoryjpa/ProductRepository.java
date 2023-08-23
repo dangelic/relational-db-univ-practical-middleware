@@ -1,4 +1,4 @@
-package uni.dbprak21.shopmiddleware.repository;
+package uni.dbprak21.shopmiddleware.repositoryjpa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
