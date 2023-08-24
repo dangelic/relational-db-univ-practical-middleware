@@ -1,33 +1,40 @@
 package uni.dbprak21.shopmiddleware.system;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import uni.dbprak21.shopmiddleware.ShopMiddleware;
 
-@Component
-public class Initializer implements ShopMiddleware {
+import java.util.Arrays;
 
-    private final Environment environment;
+@Component
+public class Initializer implements ApplicationRunner, ShopMiddleware {
 
     @Autowired
-    public Initializer(Environment environment) {
-        this.environment = environment;
+    private Environment environment;
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        init();
     }
 
     public void init() {
-        // Fetch properties from application.properties
-        String dbUrl = environment.getProperty("spring.datasource.url");
-        String dbUsername = environment.getProperty("spring.datasource.username");
-        String dbPassword = environment.getProperty("spring.datasource.password");
 
-        // Perform initialization tasks
-        initializeDatabaseConnection(dbUrl, dbUsername, dbPassword);
-        // Other initialization tasks
-        // ...
-    }
+        // Zur Demonstration werden hier aus Environment ein paar Werte extrahiert, die aus application.properties stammen
+        // Hier könnten noch weitere INIT-Funktionalitäten hinzugefügt werden
+        String profile = Arrays.toString(environment.getDefaultProfiles());
+        String jdbcDriver = environment.getProperty("spring.datasource.url");
+        String hibernateDialect = environment.getProperty("spring.jpa.properties.hibernate.dialect");
 
-    private void initializeDatabaseConnection(String url, String username, String password) {
-        // TODO: Implement database connection logic here!
+        System.out.println("*********************");
+        System.out.println("Initializer is executed on application startup.");
+        System.out.println("application.properties is loaded as config file.");
+        System.out.println("===> Reading environment defined by config:");
+        System.out.println("Profile: " + profile);
+        System.out.println("JDBC Driver: " + jdbcDriver);
+        System.out.println("Hibernate Dialect: " + hibernateDialect);
+        System.out.println("*********************");
     }
 }

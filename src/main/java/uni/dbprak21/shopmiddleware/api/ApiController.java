@@ -14,6 +14,8 @@ import uni.dbprak21.shopmiddleware.model.UserReview;
 import uni.dbprak21.shopmiddleware.model.User;
 import org.springframework.http.ResponseEntity;
 
+import uni.dbprak21.shopmiddleware.system.Finisher;
+
 import java.util.List;
 import java.util.Map;
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ShopMiddleware {
 
-    // default void init(Properties properties) {};
+    default void init() {};
     default void finish() {}
     default Product getProduct(String productId) { return null; }
     default List<Product> getProducts(String pattern) { return Collections.emptyList(); }
