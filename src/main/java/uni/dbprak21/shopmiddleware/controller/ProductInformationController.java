@@ -25,8 +25,8 @@ public class ProductInformationController {
         this.productRepository = productRepository;
     }
 
-    public ResponseEntity<Optional<Product>> getProduct(String asin) {
-        Optional<Product> products = productRepository.findById(asin);
+    public ResponseEntity<List<Product>> getProduct(String productId) {
+        List<Product> products = productInformationDTO.getProduct(productId);
         return ResponseEntity.ok(products);
     }
 

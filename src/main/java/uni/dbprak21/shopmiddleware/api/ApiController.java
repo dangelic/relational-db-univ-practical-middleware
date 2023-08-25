@@ -41,8 +41,8 @@ public class ApiController {
     }
 
     @GetMapping("/products/get-product-by-id")
-    public ResponseEntity<List<Product>> getProduct(@RequestParam("asin") String asin) {
-        return productInformationController.getProducts(asin);
+    public ResponseEntity<List<Product>> getProduct(@RequestParam("productId") String productId) {
+        return productInformationController.getProduct(productId);
     }
     @GetMapping("/products/get-products-by-pattern")
     public ResponseEntity<List<Product>> getProducts(@RequestParam("pattern") String pattern) {
@@ -65,8 +65,8 @@ public class ApiController {
     }
 
     @GetMapping("/offers/get-similar-cheaper-product")
-    public ResponseEntity<List<Product>> getSimilarCheaperProduct(@RequestParam("asin") String asin) {
-        return offerController.getSimilarCheaperProduct(asin);
+    public ResponseEntity<List<Product>> getSimilarCheaperProduct(@RequestParam("productId") String productId) {
+        return offerController.getSimilarCheaperProduct(productId);
     }
 
     @PostMapping("/reviews/add-review")
@@ -75,13 +75,13 @@ public class ApiController {
     }
 
     @GetMapping("/reviews/view-user-reviews")
-    public ResponseEntity<List<UserReview>> viewUserReviews(@RequestParam String username) {
-        return reviewController.viewUserReviews(username);
+    public ResponseEntity<List<UserReview>> viewUserReviews(@RequestParam String productId) {
+        return reviewController.viewUserReviews(productId);
     }
 
     @GetMapping("/reviews/view-guest-reviews")
-    public ResponseEntity<List<GuestReview>> viewGuestReviews(@RequestParam int k) {
-        return reviewController.viewGuestReviews(k);
+    public ResponseEntity<List<GuestReview>> viewGuestReviews(@RequestParam String productId) {
+        return reviewController.viewGuestReviews(productId);
     }
 
     @GetMapping("/reviews/get-trolls")
@@ -90,7 +90,7 @@ public class ApiController {
     }
 
     @GetMapping("/offers/get-offers")
-    public ResponseEntity<List<PriceInfo>> getOffers(@RequestParam("asin") String asin) {
-        return offerController.getOffers(asin);
+    public ResponseEntity<List<PriceInfo>> getOffers(@RequestParam("productId") String productId) {
+        return offerController.getOffers(productId);
     }
 }

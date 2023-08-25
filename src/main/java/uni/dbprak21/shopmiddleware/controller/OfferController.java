@@ -20,13 +20,13 @@ public class OfferController {
         this.offerDTO = offerDTO;
     }
 
-    public ResponseEntity<List<PriceInfo>> getOffers(String asin) {
-        List<PriceInfo> offers = offerDTO.getOffers(asin);
+    public ResponseEntity<List<PriceInfo>> getOffers(String productId) {
+        List<PriceInfo> offers = offerDTO.getOffers(productId);
         return ResponseEntity.ok(offers);
     }
 
-    public ResponseEntity<List<Product>> getSimilarCheaperProduct(String asin) {
-        List<Product> offers = offerDTO.getSimilarCheaperProduct(asin);
+    public ResponseEntity<List<Product>> getSimilarCheaperProduct(String productId) {
+        List<Product> offers = offerDTO.getSimilarCheaperProduct(productId);
         return ResponseEntity.ok(offers);
     }
 }

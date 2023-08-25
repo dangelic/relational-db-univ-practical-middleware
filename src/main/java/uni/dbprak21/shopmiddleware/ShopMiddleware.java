@@ -19,7 +19,7 @@ public interface ShopMiddleware {
     default void finish() {}
 
     // Gibt Detailinformationen über ein Produkt anhand seiner Produkt-Id (ASIN) zurück.
-    default Product getProduct(String productId) { return null; }
+    default List<Product> getProduct(String productId) { return null; }
 
     // Gibt eine Liste von Produkten zurück, deren Titel mit dem angegebenen Pattern übereinstimmen.
     default List<Product> getProducts(String pattern) { return Collections.emptyList(); }
@@ -45,9 +45,9 @@ public interface ShopMiddleware {
     // Gibt eine Liste von allen Angeboten für ein bestimmtes Produkt zurück.
     default List<PriceInfo> getOffers(String productId) { return Collections.emptyList(); }
 
-    // Gibt eine Liste der Bewertungen eines Benutzers zurück.
-    default List<UserReview> viewUserReviews(String username) { return Collections.emptyList(); }
+    // Gibt eine Liste der Bewertungen eines Benutzers für ein Produkt zurück.
+    default List<UserReview> viewUserReviews(String productId) { return Collections.emptyList(); }
 
-    // Gibt eine Liste von Bewertungen durch k Gäste(n) zurück.
-    default List<GuestReview> viewGuestReviews(int k) { return Collections.emptyList(); }
+    // Gibt eine Liste von Bewertungen durch Gäste(n) für ein Produkt zurück.
+    default List<GuestReview> viewGuestReviews(String productId) { return Collections.emptyList(); }
 }

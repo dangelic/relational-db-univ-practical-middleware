@@ -48,7 +48,7 @@ public class ReviewController {
 
     public ResponseEntity<String> addNewReview(Map<String, Object> reviewData) {
         // Extract reviewData from API calls' body
-        String asin = (String) reviewData.get("asin");
+        String productId = (String) reviewData.get("productId");
         String username = (String) reviewData.get("username"); // Optional, if not set in body the review will go into "guestreviews"
         Integer rating = (Integer) reviewData.get("rating");
         Integer helpfulVotes = (Integer) reviewData.get("helpfulVotes");
@@ -57,8 +57,8 @@ public class ReviewController {
 
         try {
             // Fetch the Product and User objects using the appropriate repositories
-            Product product = productRepository.findById(asin)
-                    .orElseThrow(() -> new EntityNotFoundException("Product not found with ID: " + asin));
+            Product product = productRepository.findById(productId)
+                    .orElseThrow(() -> new EntityNotFoundException("Product not found with ID: " + productId));
 
             User user = null;
             if (username != null && !username.isEmpty()) {
@@ -80,10 +80,10 @@ public class ReviewController {
         }
     }
 
-    public ResponseEntity<List<UserReview>> viewUserReviews(String username) {
+    public ResponseEntity<List<UserReview>> viewUserReviews(String productId) {
         try {
             // Call the viewUserReviews method in ReviewDTO and retrieve user reviews for the given username
-            List<UserReview> userReviews = reviewDTO.viewUserReviews(username);
+            List<UserReview> userReviews = reviewDTO.viewUserReviews(productId);
             return ResponseEntity.ok(userReviews);
         } catch (Exception e) {
             // Log the unexpected exception and return 500 Internal Server Error response
@@ -92,10 +92,10 @@ public class ReviewController {
         }
     }
 
-    public ResponseEntity<List<GuestReview>> viewGuestReviews(int k) {
+    public ResponseEntity<List<GuestReview>> viewGuestReviews(String productId) {
         try {
             // Call the viewGuestReviews method in ReviewDTO and retrieve the newest k guest reviews
-            List<GuestReview> guestReviews = reviewDTO.viewGuestReviews(k);
+            List<GuestReview> guestReviews = reviewDTO.viewGuestReviews(productId);
             return ResponseEntity.ok(guestReviews);
         } catch (Exception e) {
             // Log the unexpected exception and return 500 Internal Server Error response

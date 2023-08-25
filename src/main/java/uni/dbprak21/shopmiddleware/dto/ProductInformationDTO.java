@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import uni.dbprak21.shopmiddleware.ShopMiddleware;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import uni.dbprak21.shopmiddleware.model.PriceInfo;
 import uni.dbprak21.shopmiddleware.model.Product;
 
 @Component
@@ -14,6 +15,14 @@ public class ProductInformationDTO implements ShopMiddleware {
     @Autowired
     public ProductInformationDTO(EntityManager entityManager) {
         this.entityManager = entityManager;
+    }
+
+    public List<Product> getProduct(String productId) {
+        System.out.println(productId);
+        String HQL = "FROM Product p WHERE p.productId LIKE :productId";
+        TypedQuery<Product> query = entityManager.createQuery(HQL, Product.class);
+        query.setParameter("productId", productId);
+        return query.getResultList();
     }
 
     public List<Product> getProducts(String pattern) {

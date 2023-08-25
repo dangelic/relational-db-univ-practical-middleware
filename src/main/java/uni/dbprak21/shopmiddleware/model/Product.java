@@ -21,7 +21,7 @@ public class Product {
 
     @Id
     @Column(name = "asin", length = 10, nullable = false)
-    private String asin;
+    private String productId;
 
     @Column(name = "ptitle", length = 255, nullable = false)
     private String productTitle;
@@ -53,9 +53,9 @@ public class Product {
     }
 
     // Constructor with all fields
-    public Product(String asin, String productTitle, String productGroup, String ean, String imageUrl, String detailpageUrl, Integer salesrank, String upc, Float averageRating) {
+    public Product(String productId, String productTitle, String productGroup, String ean, String imageUrl, String detailpageUrl, Integer salesrank, String upc, Float averageRating) {
         super();
-        this.asin = asin;
+        this.productId = productId;
         this.productTitle = productTitle;
         this.productGroup = productGroup;
         this.ean = ean;
@@ -66,12 +66,12 @@ public class Product {
         this.averageRating = averageRating;
     }
 
-    public String getAsin() {
-        return asin;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setAsin(String asin) {
-        this.asin = asin;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public String getProductTitle() {
