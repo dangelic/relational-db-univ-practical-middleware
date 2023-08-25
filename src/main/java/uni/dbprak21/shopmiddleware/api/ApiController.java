@@ -85,8 +85,8 @@ public class ApiController {
     }
 
     @GetMapping("/reviews/get-trolls")
-    public ResponseEntity<List<User>> getTrolls(@RequestParam float threshold, @RequestParam int minReviews) {
-        return reviewController.getTrolls(threshold, minReviews);
+    public ResponseEntity<List<User>> getTrolls() {
+        return reviewController.getTrolls();
     }
 
     @GetMapping("/offers/get-offers")

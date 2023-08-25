@@ -40,7 +40,7 @@ public interface ShopMiddleware {
     default void addNewReview(Product product, User user, Integer rating, Integer helpfulVotes, String summary, String content) {}
 
     // Gibt eine Liste von Benutzern zurück, deren Durchschnittsbewertung unterhalb eines Schwellenwerts liegt und die eine Mindestanzahl von Bewertungen haben.
-    default List<User> getTrolls(float threshold, int minReviews) { return Collections.emptyList(); }
+    default List<User> getTrolls() { return Collections.emptyList(); }
 
     // Gibt eine Liste von allen Angeboten für ein bestimmtes Produkt zurück.
     default List<PriceInfo> getOffers(String productId) { return Collections.emptyList(); }

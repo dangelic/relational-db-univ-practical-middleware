@@ -34,10 +34,12 @@ public class ReviewController {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<List<User>> getTrolls(float threshold, int minReviews) {
+    public ResponseEntity<List<User>> getTrolls() {
         try {
-            // Call the getTrolls method in ReviewDTO and retrieve trolls based on the specified criteria
-            List<User> trolls = reviewDTO.getTrolls(threshold, minReviews);
+            // Call the getTrolls method in ReviewDTO and retrieve trolls based on the specified criteria:
+            float THRESHOLD = 2.1f;
+            int MIN_REVIEWS = 3;
+            List<User> trolls = reviewDTO.getTrolls(THRESHOLD, MIN_REVIEWS);
             return ResponseEntity.ok(trolls);
         } catch (Exception e) {
             // Log the unexpected exception and return 500 Internal Server Error response
