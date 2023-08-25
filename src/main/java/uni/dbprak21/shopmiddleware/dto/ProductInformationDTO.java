@@ -25,7 +25,7 @@ public class ProductInformationDTO implements ShopMiddleware {
             return allProductsQuery.getResultList();
         } else {
             // If the pattern is not empty, search for products based on the pattern
-            String productSearchHQL = "FROM Product p WHERE p.productTitle LIKE :pattern";
+            String productSearchHQL = "FROM Product p WHERE p.productTitle ILIKE :pattern";
             TypedQuery<Product> productSearchQuery = entityManager.createQuery(productSearchHQL, Product.class);
             productSearchQuery.setParameter("pattern", "%" + pattern.toLowerCase() + "%");
             return productSearchQuery.getResultList();
