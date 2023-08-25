@@ -17,14 +17,6 @@ public class ProductInformationDTO implements ShopMiddleware {
         this.entityManager = entityManager;
     }
 
-    public List<Product> getProduct(String productId) {
-        System.out.println(productId);
-        String HQL = "FROM Product p WHERE p.productId LIKE :productId";
-        TypedQuery<Product> query = entityManager.createQuery(HQL, Product.class);
-        query.setParameter("productId", productId);
-        return query.getResultList();
-    }
-
     public List<Product> getProducts(String pattern) {
         if (pattern == null || pattern.isEmpty()) {
             // If the pattern is empty or null, return all products

@@ -41,7 +41,7 @@ public class ApiController {
     }
 
     @GetMapping("/products/get-product-by-id")
-    public ResponseEntity<List<Product>> getProduct(@RequestParam("productId") String productId) {
+    public ResponseEntity<Product> getProduct(@RequestParam("productId") String productId) {
         return productInformationController.getProduct(productId);
     }
     @GetMapping("/products/get-products-by-pattern")

@@ -19,7 +19,7 @@ public interface ShopMiddleware {
     default void finish() {}
 
     // Gibt Detailinformationen über ein Produkt anhand seiner Produkt-Id (ASIN) zurück.
-    default List<Product> getProduct(String productId) { return null; }
+    default Product getProduct(String productId) { return null; }
 
     // Gibt eine Liste von Produkten zurück, deren Titel mit dem angegebenen Pattern übereinstimmen.
     default List<Product> getProducts(String pattern) { return Collections.emptyList(); }

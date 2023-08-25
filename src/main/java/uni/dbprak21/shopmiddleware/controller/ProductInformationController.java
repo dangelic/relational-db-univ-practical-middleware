@@ -25,9 +25,17 @@ public class ProductInformationController {
         this.productRepository = productRepository;
     }
 
-    public ResponseEntity<List<Product>> getProduct(String productId) {
-        List<Product> products = productInformationDTO.getProduct(productId);
-        return ResponseEntity.ok(products);
+    public ResponseEntity<Product> getProduct(String productId) {
+        // Hier wird einfach die Funktion findById des productRepository (als JPA-Repository-Erweiterung) genommen
+        // Dies erspart die manuelle Programmierung einer eigenen Query, die sonst in DTO aufgerufen werden würden
+        Optional<Product> productOptional = productRepository.findById(productId);
+
+        if (productOptional.isPresent()) {
+            Product product = productOptional.get();
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.notFound().build(); // 404
+        }
     }
 
     public ResponseEntity<List<Product>> getProducts(String pattern) {
