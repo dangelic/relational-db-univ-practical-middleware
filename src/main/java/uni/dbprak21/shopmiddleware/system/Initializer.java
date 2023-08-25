@@ -31,9 +31,9 @@ public class Initializer implements ApplicationRunner, ShopMiddleware {
 
         System.out.println();
         System.out.println("**********************************************************************************************************");
-        System.out.println("* >>> Initializer is executed on application startup.  *");
-        System.out.println("* >>> application.properties is loaded as config file. *");
-        System.out.println("* ===> Reading environment defined by config:          *");
+        System.out.println("* >>> Initializer is executed on application startup.  ");
+        System.out.println("* >>> application.properties is loaded as config file. ");
+        System.out.println("* ===> Reading environment defined by config:          ");
         System.out.println("*          Profile: " + profile);
         System.out.println("*          JDBC Driver: " + jdbcDriver);
         System.out.println("*          Hibernate Dialect: " + hibernateDialect);
