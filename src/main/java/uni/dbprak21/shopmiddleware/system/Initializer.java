@@ -10,7 +10,7 @@ import uni.dbprak21.shopmiddleware.ShopMiddleware;
 import java.util.Arrays;
 
 @Component
-public class Initializer implements ApplicationRunner, ShopMiddleware {
+public class Initializer implements ApplicationRunner, ShopMiddleware { // Nutze Application Runner für den Auto-Trigger bei Start der App
 
     @Autowired
     private Environment environment;
