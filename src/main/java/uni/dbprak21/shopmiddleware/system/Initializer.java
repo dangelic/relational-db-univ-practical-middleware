@@ -15,26 +15,29 @@ public class Initializer implements ApplicationRunner, ShopMiddleware {
     @Autowired
     private Environment environment;
 
+    // Diese Logik wird beim Starten der Applikation automatisch getriggert.
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         init();
     }
 
     public void init() {
-
         // Zur Demonstration werden hier aus Environment ein paar Werte extrahiert, die aus application.properties stammen
         // Hier könnten noch weitere INIT-Funktionalitäten hinzugefügt werden
         String profile = Arrays.toString(environment.getDefaultProfiles());
         String jdbcDriver = environment.getProperty("spring.datasource.url");
         String hibernateDialect = environment.getProperty("spring.jpa.properties.hibernate.dialect");
 
-        System.out.println("*********************");
-        System.out.println("Initializer is executed on application startup.");
-        System.out.println("application.properties is loaded as config file.");
-        System.out.println("===> Reading environment defined by config:");
-        System.out.println("Profile: " + profile);
-        System.out.println("JDBC Driver: " + jdbcDriver);
-        System.out.println("Hibernate Dialect: " + hibernateDialect);
-        System.out.println("*********************");
+        System.out.println();
+        System.out.println("**********************************************************************************************************");
+        System.out.println("* >>> Initializer is executed on application startup.  *");
+        System.out.println("* >>> application.properties is loaded as config file. *");
+        System.out.println("* ===> Reading environment defined by config:          *");
+        System.out.println("*          Profile: " + profile);
+        System.out.println("*          JDBC Driver: " + jdbcDriver);
+        System.out.println("*          Hibernate Dialect: " + hibernateDialect);
+        System.out.println("**********************************************************************************************************");
+        System.out.println();
     }
 }

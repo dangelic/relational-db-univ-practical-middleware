@@ -4,8 +4,11 @@ import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Component;
 import uni.dbprak21.shopmiddleware.ShopMiddleware;
 
+
 @Component
 public class Finisher implements ShopMiddleware {
+
+    // Diese Logik wird beim Beenden der Applikation automatisch getriggert.
     @PreDestroy
     public void finish() {
         System.out.println();
