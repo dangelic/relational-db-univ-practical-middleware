@@ -13,20 +13,18 @@ import uni.dbprak21.shopmiddleware.model.Product;
 @RestController
 public class OfferController {
 
-    private final OfferDTO offerDTO; // Autowire PriceinfoDTO
+    private final OfferDTO offerDTO;
 
     @Autowired
     public OfferController(OfferDTO offerDTO) {
         this.offerDTO = offerDTO;
     }
 
-    // Get offers for a given ASIN
     public ResponseEntity<List<PriceInfo>> getOffers(String asin) {
         List<PriceInfo> offers = offerDTO.getOffers(asin);
         return ResponseEntity.ok(offers);
     }
 
-    // Get offers for a given ASIN
     public ResponseEntity<List<Product>> getSimilarCheaperProduct(String asin) {
         List<Product> offers = offerDTO.getSimilarCheaperProduct(asin);
         return ResponseEntity.ok(offers);

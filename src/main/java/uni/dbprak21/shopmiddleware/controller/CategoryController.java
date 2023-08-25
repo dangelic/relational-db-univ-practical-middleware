@@ -18,7 +18,6 @@ public class CategoryController {
         this.categoryDTO = categoryDTO;
     }
 
-    // Get products via title pattern using query parameter
     public ResponseEntity<List<Category>> getCategoryTree() {
         List<Category> categories = categoryDTO.getCategoryTree();
         return ResponseEntity.ok(categories);

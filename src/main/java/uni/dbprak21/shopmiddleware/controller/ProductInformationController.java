@@ -30,7 +30,6 @@ public class ProductInformationController {
         return ResponseEntity.ok(products);
     }
 
-    // Get products via title pattern using query parameter
     public ResponseEntity<List<Product>> getProducts(String pattern) {
         List<Product> products = productInformationDTO.getProducts(pattern);
         return ResponseEntity.ok(products);
