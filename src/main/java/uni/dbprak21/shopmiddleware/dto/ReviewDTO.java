@@ -57,14 +57,14 @@ public class ReviewDTO implements ShopMiddleware {
 
     public List<UserReview> viewUserReviews(String productId) {
         // Retrieve user reviews for the given username from the database
-        return entityManager.createQuery("SELECT ur FROM UserReview ur WHERE ur.product = :productId", UserReview.class)
+        return entityManager.createQuery("SELECT ur FROM UserReview ur WHERE ur.product.productId = :productId", UserReview.class)
                 .setParameter("productId", productId)
                 .getResultList();
     }
 
     public List<GuestReview> viewGuestReviews(String productId) {
         // Retrieve the newest k guest reviews from the database
-        return entityManager.createQuery("SELECT gr FROM GuestReview gr WHERE gr.product = :productId ORDER BY gr.reviewDate DESC", GuestReview.class)
+        return entityManager.createQuery("SELECT gr FROM GuestReview gr WHERE gr.product.productId = :productId ORDER BY gr.reviewDate DESC", GuestReview.class)
                 .setParameter("productId", productId)
                 .getResultList();
     }
