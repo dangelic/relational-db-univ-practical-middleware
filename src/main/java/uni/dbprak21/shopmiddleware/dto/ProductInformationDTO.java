@@ -17,17 +17,18 @@ public class ProductInformationDTO {
         this.entityManager = entityManager;
     }
 
+    // Benötigte Relationen im Hibernate-Model: nur Product ohne Verknüpfung
     public List<Product> getProducts(String pattern) {
         if (pattern == null || pattern.isEmpty()) {
-            // If the pattern is empty or null, return all products
+            // Wenn String NULL ist, gebe alles zurück
             String allProductsHQL = "FROM Product";
             TypedQuery<Product> allProductsQuery = entityManager.createQuery(allProductsHQL, Product.class);
             return allProductsQuery.getResultList();
         } else {
-            // If the pattern is not empty, search for products based on the pattern
+            // Wenn String NICHT NULL, dann suche über ILIKE (case-insensitive LIKE; doppelte Sicherheit, da pattern.toLowerCase() aufgerufen wird)
             String productSearchHQL = "FROM Product p WHERE p.productTitle ILIKE :pattern";
             TypedQuery<Product> productSearchQuery = entityManager.createQuery(productSearchHQL, Product.class);
-            productSearchQuery.setParameter("pattern", "%" + pattern.toLowerCase() + "%");
+            productSearchQuery.setParameter("pattern", "%" + pattern.toLowerCase() + "%"); // case-insensitive
             return productSearchQuery.getResultList();
         }
     }

@@ -22,6 +22,11 @@ public class CategoryDTO {
         this.entityManager = entityManager;
     }
 
+    // TODO: Kommentare!
+    // Benötigte Relationen im Hibernate-Model:
+    //      für den Tree: nur Category mit @OneToMany(mappedBy = "parentCategoryId")
+    //      für die Rückgabe von Produkten nach Kategorie-Pfad: Category und Products
+
     public List<Category> getCategoryTree() {
         String HQL = "SELECT c FROM Category c WHERE c.parentCategoryId IS NULL";
         TypedQuery<Category> query = entityManager.createQuery(HQL, Category.class);

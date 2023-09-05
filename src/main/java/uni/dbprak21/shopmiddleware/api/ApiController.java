@@ -39,7 +39,7 @@ public class ApiController implements ShopMiddleware {
         this.reviewController = reviewController;
     }
 
-    // ---> Controller ---> ProductInformationDTO
+    // ---> Controller ---> JPA Funktion
     @GetMapping("/products/get-product-by-id")
     public ResponseEntity<Product> getProduct(@RequestParam("productId") String productId) {
         return productInformationController.getProduct(productId);
