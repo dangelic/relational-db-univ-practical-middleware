@@ -5,12 +5,12 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-import uni.dbprak21.shopmiddleware.ShopMiddleware;
+import uni.dbprak21.shopmiddleware.InitFinish;
 
 import java.util.Arrays;
 
 @Component
-public class Initializer implements ApplicationRunner, ShopMiddleware { // Nutze Application Runner für den Auto-Trigger bei Start der App
+public class Initializer implements ApplicationRunner, InitFinish { // Nutze Application Runner für den Auto-Trigger bei Start der App
 
     @Autowired
     private Environment environment;

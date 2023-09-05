@@ -2,11 +2,12 @@ package uni.dbprak21.shopmiddleware.system;
 
 import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Component;
+import uni.dbprak21.shopmiddleware.InitFinish;
 import uni.dbprak21.shopmiddleware.ShopMiddleware;
 
 
 @Component
-public class Finisher implements ShopMiddleware {
+public class Finisher implements InitFinish {
 
     // Diese Logik wird beim Beenden der Applikation automatisch getriggert.
     @PreDestroy

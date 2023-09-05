@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uni.dbprak21.shopmiddleware.ShopMiddleware;
 import uni.dbprak21.shopmiddleware.dto.ReviewDTO;
 import uni.dbprak21.shopmiddleware.model.GuestReview;
 import uni.dbprak21.shopmiddleware.model.Product;

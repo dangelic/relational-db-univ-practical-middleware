@@ -9,7 +9,7 @@ import uni.dbprak21.shopmiddleware.model.PriceInfo;
 import uni.dbprak21.shopmiddleware.model.Product;
 
 @Component
-public class ProductInformationDTO implements ShopMiddleware {
+public class ProductInformationDTO {
     private final EntityManager entityManager;
 
     @Autowired

@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-public class ReviewDTO implements ShopMiddleware {
+public class ReviewDTO {
 
     private final EntityManager entityManager;
 

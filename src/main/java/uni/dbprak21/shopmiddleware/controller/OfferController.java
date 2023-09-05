@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import uni.dbprak21.shopmiddleware.ShopMiddleware;
 import uni.dbprak21.shopmiddleware.model.PriceInfo;
 import uni.dbprak21.shopmiddleware.dto.OfferDTO;
 import uni.dbprak21.shopmiddleware.model.Product;
 
 @RestController
-public class OfferController {
+public class OfferController  {
 
     private final OfferDTO offerDTO;
 

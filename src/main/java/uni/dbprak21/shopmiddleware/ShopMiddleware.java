@@ -7,47 +7,43 @@ import uni.dbprak21.shopmiddleware.model.GuestReview;
 import uni.dbprak21.shopmiddleware.model.UserReview;
 import uni.dbprak21.shopmiddleware.model.Category;
 
-import java.util.Collections;
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
+import java.util.Map;
 
 public interface ShopMiddleware {
 
-    // Initialisiert die Middleware, erstellt die Datenbankverbindung und führt notwendige Initialisierungsschritte durch.
-    default void init() {};
-
-    // Wird bei Beendigung der Anwendung aufgerufen, um Ressourcen freizugeben, insbesondere Datenbankobjekte.
-    default void finish() {}
-
     // Gibt Detailinformationen über ein Produkt anhand seiner Produkt-Id (ASIN) zurück.
-    default Product getProduct(String productId) { return null; }
+    ResponseEntity<Product> getProduct(String productId);
 
     // Gibt eine Liste von Produkten zurück, deren Titel mit dem angegebenen Pattern übereinstimmen.
-    default List<Product> getProducts(String pattern) { return Collections.emptyList(); }
+    ResponseEntity<List<Product>> getProducts(String pattern);
 
     // Gibt eine Liste der besten k Produkte basierend auf dem Rating zurück.
-    default List<Product> getTopProducts(int k) { return Collections.emptyList(); }
+    ResponseEntity<List<Product>> getTopProducts(int k);
 
     // Ermittelt den Kategorienbaum und gibt den Wurzelknoten zurück.
-    default List<Category> getCategoryTree() { return null; }
+    ResponseEntity<List<Category>> getCategoryTree();
 
     // Gibt eine Liste von Produkten zurück, die zur angegebenen Kategorie (als Pfad übergeben) gehören.
-    default List<Product> getProductsByCategoryPath(String categoryPath) { return Collections.emptyList(); }
+    ResponseEntity<List<Product>> getProductsByCategoryPath(String categoryPath);
 
     // Gibt eine Liste ähnlicher und preiswerter Produkte im Vergleich zu einem angegebenen Produkt zurück.
-    default List<Product> getSimilarCheaperProduct(String productId) { return Collections.emptyList(); }
+    ResponseEntity<List<Product>> getSimilarCheaperProduct(String productId);
 
     // Fügt eine neue Produktbewertung durch einen Benutzer oder einen Gast hinzu.
-    default void addNewReview(Product product, User user, Integer rating, Integer helpfulVotes, String summary, String content) {}
+    ResponseEntity<String> addNewReview(Map<String, Object> reviewData);
 
     // Gibt eine Liste von Benutzern zurück, deren Durchschnittsbewertung unterhalb eines Schwellenwerts liegt und die eine Mindestanzahl von Bewertungen haben.
-    default List<User> getTrolls() { return Collections.emptyList(); }
+    ResponseEntity<List<User>> getTrolls();
 
     // Gibt eine Liste von allen Angeboten für ein bestimmtes Produkt zurück.
-    default List<PriceInfo> getOffers(String productId) { return Collections.emptyList(); }
+    ResponseEntity<List<PriceInfo>> getOffers(String productId);
 
     // Gibt eine Liste der Bewertungen eines Benutzers für ein Produkt zurück.
-    default List<UserReview> viewUserReviews(String productId) { return Collections.emptyList(); }
+    ResponseEntity<List<UserReview>> viewUserReviews(String productId);
 
     // Gibt eine Liste von Bewertungen durch Gäste(n) für ein Produkt zurück.
-    default List<GuestReview> viewGuestReviews(String productId) { return Collections.emptyList(); }
+    ResponseEntity<List<GuestReview>> viewGuestReviews(String productId);
 }

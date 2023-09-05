@@ -16,7 +16,7 @@ import uni.dbprak21.shopmiddleware.model.PriceInfo;
 import uni.dbprak21.shopmiddleware.model.Product;
 
 @Component
-public class OfferDTO implements ShopMiddleware {
+public class OfferDTO {
 
     private final EntityManager entityManager;
 

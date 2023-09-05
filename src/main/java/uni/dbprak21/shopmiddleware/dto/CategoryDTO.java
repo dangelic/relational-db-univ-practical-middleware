@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class CategoryDTO implements ShopMiddleware {
+public class CategoryDTO {
 
     private final EntityManager entityManager;
 

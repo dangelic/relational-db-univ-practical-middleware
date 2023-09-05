@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import uni.dbprak21.shopmiddleware.ShopMiddleware;
 import uni.dbprak21.shopmiddleware.model.Product;
 import uni.dbprak21.shopmiddleware.dto.ProductInformationDTO;
 import uni.dbprak21.shopmiddleware.repositoryjpa.ProductRepository;
