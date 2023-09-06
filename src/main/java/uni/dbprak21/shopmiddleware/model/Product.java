@@ -9,13 +9,12 @@ import java.util.List;
 @Table(name = "products")
 public class Product {
 
-    // Product is the "owning side" in the n:m relationship
-    // categories represents the joining logic via the junction table
-    @ManyToMany
+    // Produkt ist die "OWNING-SIDE" in der Beziehung Produkte-Kategorien
+    @ManyToMany // Mehrere Produkte können mehrere Kategorien haben
     @JoinTable(
-            name = "junction_products_categories",
-            joinColumns = @JoinColumn(name = "products_asin"),
-            inverseJoinColumns = @JoinColumn(name = "categories_category_id")
+            name = "junction_products_categories", // Die Verbindungstabelle
+            joinColumns = @JoinColumn(name = "products_asin"), // Der Schlüssel in der Verbindungstabelle ==> Schlüssel in der Produkt-Tabelle
+            inverseJoinColumns = @JoinColumn(name = "categories_category_id") // Der Schlüssel in der Verbindungstabelle ==> Schlüssel in der Kategorien-Tabelle (inverse)
     )
     private List<Category> categories = new ArrayList<>();
 

@@ -9,8 +9,16 @@ import java.util.List;
 @Table(name = "categories")
 public class Category {
 
-    @OneToMany(mappedBy = "parentCategoryId")
+    // Für getCategoryTree(...) ->
+        // subcategories als virtuelles Feld in M:1 Beziehung
+        // subcategories werden über Setter vom DTO gesetzt
+    @OneToMany(mappedBy = "parentCategoryId") // Mehrere Unterkategorien gehören zu einer Oberkategorie
     private List<Category> subcategories;
+
+    // Für getProductsByCategoryPath(...) ->
+        // Kategorie ist die "NOT-OWNING-SIDE" in der Beziehung Produkte-Kategorien, in Produkte-Tabelle ist die n:m Verbindung schon definiert.
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products = new ArrayList<>();
     @Id
     @Column(name = "category_id", length = 9, nullable = false)
     private String categoryId;
@@ -22,8 +30,6 @@ public class Category {
     private String name;
 
 
-    @ManyToMany(mappedBy = "categories")
-    private List<Product> products = new ArrayList<>();
 
     public Category() {
     }
