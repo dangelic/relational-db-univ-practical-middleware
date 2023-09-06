@@ -4,12 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
-import jakarta.persistence.NoResultException;
+import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 
 import uni.dbprak21.shopmiddleware.ShopMiddleware;
 import uni.dbprak21.shopmiddleware.model.PriceInfo;
@@ -17,6 +14,15 @@ import uni.dbprak21.shopmiddleware.model.Product;
 
 @Component
 public class OfferDTO {
+
+    // Benötigte Relationen im Hibernate-Model:
+    //                - getOffers:
+    //                          - @ManyToOne auf PriceInfo - Produkte: Mehrere PreisInfos für ein Produkt
+    //                          - @ManyToOne auf Shops - PriceInfos: Mehrere PreisInfos für einen Shop
+    //                - getSimilarCheaperProduct:
+    //                          - ...
+    //                          - ...
+    //                          - Zusatz: similar_products Relation: @ManyToOne auf Similar-Produkt auf Produkt - mehrere ähnliche Produkte auf ein Produkt
 
     private final EntityManager entityManager;
 
@@ -78,7 +84,7 @@ public class OfferDTO {
                 continue; // Skip
             }
 
-            // Check if similarProductCheapestPrice is not null before using it
+            // Check auf similarProductCheapestPrice is not null vor Nutzung
             if (similarProductCheapestPrice != null && similarProductCheapestPrice < cheapestPrice) {
                 similarCheaperProducts.add(similarProduct);
             }

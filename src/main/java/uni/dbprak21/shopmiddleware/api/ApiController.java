@@ -39,67 +39,67 @@ public class ApiController implements ShopMiddleware {
         this.reviewController = reviewController;
     }
 
-    // ---> Controller ---> JPA Funktion
+    // ---> Controller ---> JPA Funktion //
     @GetMapping("/products/get-product-by-id")
     public ResponseEntity<Product> getProduct(@RequestParam("productId") String productId) {
         return productInformationController.getProduct(productId);
     }
 
-    // ---> Controller ---> ProductInformationDTO
+    // ---> Controller ---> ProductInformationDTO //
     @GetMapping("/products/get-products-by-pattern")
     public ResponseEntity<List<Product>> getProducts(@RequestParam("pattern") String pattern) {
         return productInformationController.getProducts(pattern);
     }
 
-    // ---> Controller ---> CategoryDTO
+    // ---> Controller ---> CategoryDTO //
     @GetMapping("/categories/tree")
     public ResponseEntity<List<Category>> getCategoryTree() {
         return categoryController.getCategoryTree();
     }
 
-    // ---> Controller ---> CategoryDTO
+    // ---> Controller ---> CategoryDTO //
     @GetMapping("/categories/products-by-path")
     public ResponseEntity<List<Product>> getProductsByCategoryPath(@RequestParam("path") String categoryPath) {
         return categoryController.getProductsByCategoryPath(categoryPath);
     }
 
-    // ---> Controller ---> ReviewDTO
+    // ---> Controller ---> ReviewDTO //
     @GetMapping("/reviews/top-products")
     public ResponseEntity<List<Product>> getTopProducts(@RequestParam("k") int k) {
         return reviewController.getTopProducts(k);
     }
 
-    // ---> Controller ---> OfferDTO
+    // ---> Controller ---> OfferDTO //
     @GetMapping("/offers/get-similar-cheaper-product")
     public ResponseEntity<List<Product>> getSimilarCheaperProduct(@RequestParam("productId") String productId) {
         return offerController.getSimilarCheaperProduct(productId);
     }
 
-    // ---> Controller ---> ReviewDTO
+    // ---> Controller ---> ReviewDTO //
     @PostMapping("/reviews/add-review")
     public ResponseEntity<String> addNewReview(@RequestBody Map<String, Object> reviewData) {
         return reviewController.addNewReview(reviewData);
     }
 
-    // ---> Controller ---> ReviewDTO
+    // ---> Controller ---> ReviewDTO //
     @GetMapping("/reviews/view-user-reviews")
     public ResponseEntity<List<UserReview>> viewUserReviews(@RequestParam String productId) {
         return reviewController.viewUserReviews(productId);
     }
 
-    // ---> Controller ---> ReviewDTO
+    // ---> Controller ---> ReviewDTO //
     @GetMapping("/reviews/view-guest-reviews")
     public ResponseEntity<List<GuestReview>> viewGuestReviews(@RequestParam String productId) {
         return reviewController.viewGuestReviews(productId);
     }
 
-    // ---> Controller ---> ReviewDTO
+    // ---> Controller ---> ReviewDTO //
     @GetMapping("/reviews/get-trolls")
     public ResponseEntity<List<User>> getTrolls() {
         return reviewController.getTrolls();
     }
 
-    // ---> Controller ---> OfferDTP
+    // ---> Controller ---> OfferDTP //
     @GetMapping("/offers/get-offers")
     public ResponseEntity<List<PriceInfo>> getOffers(@RequestParam("productId") String productId) {
         return offerController.getOffers(productId);

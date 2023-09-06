@@ -8,14 +8,16 @@ import java.util.Date;
 public class UserReview {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID) // Generiere UUID für Bewertung
     @Column(name = "userreview_id", unique = true, nullable = false)
     private String userReviewId;
 
+    // Joine Produkte
     @ManyToOne
     @JoinColumn(name = "products_asin", nullable = false)
     private Product product;
 
+    // Joine Nutzer
     @ManyToOne
     @JoinColumn(name = "users_username", nullable = false)
     private User user;

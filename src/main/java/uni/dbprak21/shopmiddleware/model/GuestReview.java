@@ -9,10 +9,11 @@ import java.util.UUID;
 public class GuestReview {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID) // Generiere eine UUID für die Bewertung
     @Column(name = "guestreview_id", unique = true, nullable = false)
     private String guestReviewId;
 
+    // Joine Produkte
     @ManyToOne
     @JoinColumn(name = "products_asin", nullable = false)
     private Product product;

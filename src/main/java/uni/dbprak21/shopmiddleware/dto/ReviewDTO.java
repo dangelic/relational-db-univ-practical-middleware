@@ -18,6 +18,15 @@ import java.util.List;
 @Component
 public class ReviewDTO {
 
+    // Benötigte Relationen im Hibernate-Model:
+    //          - addNewReview:
+    //                  - @ManyToOne auf Produkte-Tabelle: (aus Sicht der Bewertungen) mehrere Bewertungen für ein Produkt
+    //                  - NUR bei Nutzern: @ManyToOne auf User-Tabelle: (aus Sicht der Bewertungen) mehrere Nutzer bewerten selbes Produkt
+    //          - getTrolls:
+    //                  - @ManyToOne auf User-Tabelle: (aus Sicht der Bewertungen) mehrere Nutzer bewerten selbes Produkt
+    //          - getTopProducts:
+    //                  - Nur Produkte-Relation, da AVG-Bewertungen hier auch drinstehen (durch Trigger-Funktion aus Testat 2)
+
     private final EntityManager entityManager;
 
     @Autowired
@@ -25,23 +34,24 @@ public class ReviewDTO {
         this.entityManager = entityManager;
     }
 
-    @Transactional
+    // Reviews werden für Nutzer und Gäste gesetzt
+    @Transactional // Eine Transaktion
     public void addNewReview(Product product, User user, Integer rating, Integer helpfulVotes, String summary, String content) {
-        Date reviewDate = new Date(); // Set the review date to the current date and time
+        Date reviewDate = new Date();
 
         if (user == null) {
-            // User is null, it's a guest review
+            // User ist null ====> Gastbewertung
             GuestReview guestReview = new GuestReview();
             guestReview.setProduct(product);
             guestReview.setRating(rating);
             guestReview.setHelpfulVotes(helpfulVotes);
             guestReview.setSummary(summary);
             guestReview.setContent(content);
-            guestReview.setReviewDate(reviewDate); // Set the review date
-            // Persist the changes
+            guestReview.setReviewDate(reviewDate); // Set review Date auf jetzt
+            // Persistieren der Änderungen
             entityManager.persist(guestReview);
         } else {
-            // User is not null, it's a user review
+            // User ist nicht null ====> Nutzerbewertung
             UserReview userReview = new UserReview();
             userReview.setProduct(product);
             userReview.setUser(user);
@@ -49,8 +59,8 @@ public class ReviewDTO {
             userReview.setHelpfulVotes(helpfulVotes);
             userReview.setSummary(summary);
             userReview.setContent(content);
-            userReview.setReviewDate(reviewDate); // Set the review date
-            // Persist the changes
+            userReview.setReviewDate(reviewDate); // Set review Date auf jetzt
+            // Persistieren der Änderungen
             entityManager.persist(userReview);
         }
     }
@@ -71,6 +81,7 @@ public class ReviewDTO {
 
     @Transactional(readOnly = true)
     public List<User> getTrolls(float threshold, int minReviews) {
+        // Hole alle Usernamen von den Nutzern, die mindestens X Reviews gemacht und ein Rating unter Y (AVG) vergeben haben
         String subquery = "SELECT ur.user.id " +
                 "FROM UserReview ur " +
                 "GROUP BY ur.user.id " +
@@ -86,6 +97,7 @@ public class ReviewDTO {
             return Collections.emptyList();
         }
 
+        // Hole alle Informationen der oben gefundenen Trolle
         String userQuery = "SELECT u FROM User u " +
                 "WHERE u.id IN :trollUserIds";
 
@@ -95,8 +107,10 @@ public class ReviewDTO {
     }
 
     public List<Product> getTopProducts(int k) {
-        String HQL = "FROM Product p WHERE p.averageRating IS NOT NULL ORDER BY p.averageRating DESC"; // not-null constraint as some products are not rated at all.
+        // Hole alle Produkte geordnet nach Rating (wenn sie eins haben)
+        String HQL = "FROM Product p WHERE p.averageRating IS NOT NULL ORDER BY p.averageRating DESC"; // not-null constraint da manche Produkte keine Bewertung haben
         TypedQuery<Product> query = entityManager.createQuery(HQL, Product.class);
+        // Gebe die höchsten k Bewertungen
         query.setMaxResults(k);
         return query.getResultList();
     }
